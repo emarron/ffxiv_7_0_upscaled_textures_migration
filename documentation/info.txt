@@ -1,0 +1,27 @@
+
+
+
+research on bg types:
+bg consists of: _d diffuse, _n normal, and _s specular.
+further can be categorized as has alpha or does not. usually only diffuse has alpha.
+Almost all specular are changed. I do not modify specular so that is ignored.
+Almost all diffuse of not alpha type are substantially identical. However do to recompressing, they present a small difference which must be detected by similarity checks exceeding 98%.
+Almost all normal are substantially identical simliar to diffuse. However, certain normals have had data added to their B channel. because of this we perform the similarity check.
+
+For BC1 of same size in 6_3 and 7_0:
+1. convert to png (Because of all BC1_UNORM w/ 1.bit being converted to BC7 we can assume no transparency for these images)
+2. similarity check
+3. if similarity check > 98% we have identical textures.
+4. if not we have new textures.
+
+For not the same size in 6_3 and 7_0:
+1. we assume some substantial difference.
+2. if resolution differs we assume new.
+3. if resolution doesn't differ but compression does we assume inspection.
+4. We should inspect conversions from BC1_UNORM /w 1.bit alpha to BC7
+5. We should inspect conversions from BC3_UNORM to BC7.
+6. in 4 and 5 problems could be present, however, the corpus should be small enough for a manual review of each.
+
+
+If we found identical textures what do we do?
+1. copy the textures from the upscaled textures pack as they can just be reimplemented directly.
