@@ -86,9 +86,9 @@ def recurse_and_process_meta(root_dir, source_dir, dest_dir):
 
 
 if __name__ == "__main__":
-    root_dir = 'storage_of_meta_data_karts\\'
-    source_dir = 'kart_world_textures\\'
-    dest_dir = 'kart_world_textures2'
+    root_dir = 'common_textures\\kart world textures common v2-1-0-update'
+    source_dir = 'common_textures\\kart world textures common\\'
+    dest_dir = 'common_textures\\kart world textures common2\\'
 
     recurse_and_process_meta(root_dir, source_dir, dest_dir)
 

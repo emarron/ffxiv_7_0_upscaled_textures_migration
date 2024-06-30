@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 
 # Read the CSV file
-csv_file = 'documentation\csv_comparisons\similarity_check_on_PNGS\goodnews_converted.csv'
+csv_file = 'C:\\Users\\emar\\PycharmProjects\\ffxiv_dawntrail\\documentation\\csv_comparisons\\common textures\\duplicates_modified.csv'
 df = pd.read_csv(csv_file)
 
 # Get the first entry for each Group ID

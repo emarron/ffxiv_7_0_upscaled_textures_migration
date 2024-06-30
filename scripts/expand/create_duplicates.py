@@ -37,7 +37,7 @@ def process_csv_and_copy_files(csv_file, new_directory):
                         print(f"Failed to copy {source_file} to {target_file_path}: {e}")
 
 if __name__ == "__main__":
-    csv_file = 'documentation/csv_comparisons/similarity_check_on_PNGS/goodnews_converted_further.csv'
+    csv_file = 'documentation/csv_comparisons/common textures/duplicates_modified_further.csv'
     new_directory = 'new_directory'
 
     process_csv_and_copy_files(csv_file, new_directory)

@@ -13,14 +13,14 @@ def find_not_bc1(input_csv, output_csv, excluded_format):
         writer.writerow(header)
 
         for row in rows:
-            index, filename, dimensions, format = row
-            if format != excluded_format:
+            filename, dimensions, format = row
+            if format == excluded_format:
                 writer.writerow(row)
 
 if __name__ == "__main__":
-    input_csv = 'comparison_results.csv'
-    output_csv = 'not_BC1.csv'
-    excluded_format = 'BC1_UNORM'
+    input_csv = 'results.csv'
+    output_csv = 'BC4.csv'
+    excluded_format = 'BC4_UNORM'
 
     find_not_bc1(input_csv, output_csv, excluded_format)
 

@@ -5,7 +5,7 @@ import re
 
 def get_texdiag_info(file_path):
     try:
-        result = subprocess.run(['./texdiag.exe', 'info', file_path], capture_output=True, text=True)
+        result = subprocess.run(['texdiag.exe', 'info', file_path], capture_output=True, text=True)
         output = result.stdout
         # Using regular expressions to extract width, height, and format
         width_match = re.search(r'width\s*=\s*(\d+)', output)
