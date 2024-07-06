@@ -171,7 +171,7 @@ cython_debug/
 *.jar
 *.exe
 *.db
-tools\
+tools/*
 *.png
 *.tga
 *.shpk
