@@ -21,7 +21,7 @@ def clean_img_r(img_r_array):
 
     return cleaned_img_r_array
 
-def process_images(img_r_path, img_g_path, output_alpha, output_bands, output_cleaned_R):
+def process_images(img_r_path, img_g_path, output_alpha, output_bands):
     # Read the input images
     img_r = Image.open(img_r_path).convert('L')
     img_g = Image.open(img_g_path).convert('L')
@@ -34,7 +34,7 @@ def process_images(img_r_path, img_g_path, output_alpha, output_bands, output_cl
     cleaned_img_r_array = clean_img_r(img_r_array)
 
     # Save the cleaned img_r as a grayscale image
-    cleaned_img_r = Image.fromarray(cleaned_img_r_array)
+    # cleaned_img_r = Image.fromarray(cleaned_img_r_array)
 
     # Define the band pairs
     band_pairs = [(0x00, 0x11), (0x22, 0x33), (0x44, 0x55), (0x66, 0x77),
@@ -69,8 +69,8 @@ def process_images(img_r_path, img_g_path, output_alpha, output_bands, output_cl
         img_result.save(img_result_output_path)
 
 # Example usage
-path_G = "stuff-id_G"
-path_R = "stuff-id_R"
+path_G = "7-0_id_G"
+path_R = "7-0_id_R"
 output_alpha = "output_alpha"
 output_bands = "output_bands"
 

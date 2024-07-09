@@ -49,7 +49,7 @@ def merge_images(item_path, output_bands, output_alpha, output_bands_alpha_merge
 
 
 # Example usage
-path_R = "stuff-id_R"
+path_R = "7-0_id_R"
 output_bands = "output_bands"
 output_alpha = "output_alpha"
 output_bands_alpha_merged = "output_bands_alpha_merged"

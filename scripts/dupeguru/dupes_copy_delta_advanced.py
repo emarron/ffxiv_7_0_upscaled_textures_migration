@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 
 # Read the CSV file
-csv_file = 'duplicates_96_modified.csv'
+csv_file = 'compare_6-3_RGB_to_7-0_RGB_DMS.csv'
 df = pd.read_csv(csv_file)
 
 # Filter the DataFrame based on the "Match %" criteria
@@ -24,10 +24,12 @@ for group_id, group_df in grouped_df:
     # Extract the filename and folder from the first entry
     filename = first_entry['Filename']
     folder = first_entry['Folder']
-    
-    # Skip files ending with "_n"
-    if filename.endswith('_n.tex'):
+    if "7-0" in folder:
+        print("7-0 item, skipping " + filename)
         continue
+    # Skip files ending with "_n"
+    # if filename.endswith('_n.tex'):
+    #     continue
     
     # Construct the full path of the first entry
     source_path = Path(folder) / filename
@@ -45,15 +47,17 @@ for group_id, group_df in grouped_df:
         
         # Construct the destination path
         destination_path = Path(destination_folder) / destination_filename
+        results_path = Path(results_dir)/ destination_path
         
         # Create parent directories for the destination path
-        destination_path.parent.mkdir(parents=True, exist_ok=True)
+        results_path.parent.mkdir(parents=True, exist_ok=True)
         
         try:
             # Copy the file from the source to the destination
-            shutil.copy2(source_path, destination_path)
-            print(f"Copied: {source_path} to {destination_path}")
+            shutil.copy2(source_path, results_path)
+            print(f"Copied: {source_path} to {results_path}")
         except FileNotFoundError:
-            print(f"File not found: {source_path}")
+            continue
+            # print(f"File not found: {source_path}")
 
 print("Files copied successfully.")
