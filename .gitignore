@@ -175,3 +175,10 @@ tools/*
 *.png
 *.tga
 *.shpk
+dumps
+common_textures
+equipment
+human
+just_custom_heads
+shpk
+world_textures
