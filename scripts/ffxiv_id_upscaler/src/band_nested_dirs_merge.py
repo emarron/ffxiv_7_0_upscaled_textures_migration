@@ -1,6 +1,8 @@
 import os
 from PIL import Image
 
+upscale_factor = os.environ.get('UPSCALE_FACTOR', 'x2')
+
 
 def merge_images(item_path, output_bands, output_alpha, output_bands_alpha_merged, out_bands_final):
     # Extract the item filename and directory structure
@@ -49,11 +51,11 @@ def merge_images(item_path, output_bands, output_alpha, output_bands_alpha_merge
 
 
 # Example usage
-path_R = "7-0_id_R"
-output_bands = "output_bands"
-output_alpha = "output_alpha"
-output_bands_alpha_merged = "output_bands_alpha_merged"
-out_bands_final = "out_bands_final"
+path_R = f"R_{upscale_factor}"
+output_bands = f"output_bands_padded_{upscale_factor}"
+output_alpha = f"output_alpha_{upscale_factor}"
+output_bands_alpha_merged = f"output_bands_alpha_merged_{upscale_factor}"
+out_bands_final = f"out_bands_final_{upscale_factor}"
 
 for root, dirs, files in os.walk(path_R):
     for file in files:

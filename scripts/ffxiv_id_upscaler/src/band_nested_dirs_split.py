@@ -69,8 +69,8 @@ def process_images(img_r_path, img_g_path, output_alpha, output_bands):
         img_result.save(img_result_output_path)
 
 # Example usage
-path_G = "7-0_id_G"
-path_R = "7-0_id_R"
+path_G = "G"
+path_R = "R"
 output_alpha = "output_alpha"
 output_bands = "output_bands"
 

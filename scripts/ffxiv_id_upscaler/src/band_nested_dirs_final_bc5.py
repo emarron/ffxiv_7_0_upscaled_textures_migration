@@ -1,15 +1,18 @@
 import os
 from PIL import Image
+import subprocess
+
+upscale_factor = os.environ.get('UPSCALE_FACTOR', 'x2')
 
 
-def merge_channels(cleaned_r_path, bands_final_path, output_tga):
+def merge_channels(cleaned_r_path, bands_final_path, output_bc5_unorm):
     # Extract the item filename and directory structure
     item_dir = os.path.dirname(cleaned_r_path)
     item_name = os.path.basename(cleaned_r_path)
     item_name_without_ext = os.path.splitext(item_name)[0]
 
     # Create the output directory if it doesn't exist
-    os.makedirs(os.path.join(output_tga, item_dir), exist_ok=True)
+    os.makedirs(os.path.join(output_bc5_unorm, item_dir), exist_ok=True)
 
     # Open the cleaned_r image and bands_final image
     cleaned_r_image = Image.open(cleaned_r_path).convert("L")
@@ -33,15 +36,22 @@ def merge_channels(cleaned_r_path, bands_final_path, output_tga):
     # Merge the channels back into the merged image
     merged_image = Image.merge("RGB", (r_band, g_band, b_band))
 
-    # Save the merged image as TGA
-    tga_path = os.path.join(output_tga, item_dir, f"{item_name_without_ext}.tga")
-    merged_image.save(tga_path, format="TGA")
+    # Save the merged image as TGA temporarily
+    temp_tga_path = os.path.join(output_bc5_unorm, item_dir, f"{item_name_without_ext}.tga")
+    merged_image.save(temp_tga_path, format="TGA")
 
+    # Convert the TGA file to BC5_UNORM format using texconv
+    output_bc5_path = os.path.join(output_bc5_unorm, item_dir, f"{item_name_without_ext}.dds")
+    texconv_path = os.path.join('src', 'texconv.exe')
+    subprocess.run([texconv_path, "-f", "BC5_UNORM", "-y", "-o", os.path.join(output_bc5_unorm, item_dir), temp_tga_path])
+
+    # Remove the temporary TGA file
+    os.remove(temp_tga_path)
 
 # Example usage
-output_cleaned_r = "stuff-id_R"
-output_bands_final = "out_bands_final"
-output_tga = "output_tga"
+output_cleaned_r = f"R_{upscale_factor}"
+output_bands_final = f"out_bands_final_{upscale_factor}"
+output_bc5_unorm = "output_bc5_unorm" 
 
 for root, dirs, files in os.walk(output_cleaned_r):
     for file in files:
@@ -49,4 +59,4 @@ for root, dirs, files in os.walk(output_cleaned_r):
             cleaned_r_path = os.path.join(root, file)
             cleaned_r_rel_path = os.path.relpath(cleaned_r_path, output_cleaned_r)
             bands_final_path = os.path.join(output_bands_final, cleaned_r_rel_path)
-            merge_channels(cleaned_r_path, bands_final_path, output_tga)
+            merge_channels(cleaned_r_path, bands_final_path, output_bc5_unorm)
