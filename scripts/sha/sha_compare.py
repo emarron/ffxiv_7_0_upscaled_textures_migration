@@ -30,13 +30,20 @@ def compare_hashes(current_csv, previous_csv):
     
     return updated_files, new_files, unchanged_files
 
+def write_list_to_csv(file_list, output_csv):
+    with open(output_csv, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['file_path'])
+        for file_path in file_list:
+            writer.writerow([file_path])
+
+
 # Example usage
-current_csv = 'file_hashes_current.csv'
-previous_csv = 'file_hashes_previous.csv'
+current_csv = 'file_hashes_7-0_tex_24-07-13.csv'
+previous_csv = 'file_hashes_7-0_tex_24-08-03.csv'
 
 updated_files, new_files, unchanged_files = compare_hashes(current_csv, previous_csv)
 
-# Output results
-print("Updated Files:", updated_files)
-print("New Files:", new_files)
-print("Unchanged Files:", unchanged_files)
+write_list_to_csv(updated_files, 'updated_files.csv')
+write_list_to_csv(new_files, 'new_files.csv')
+write_list_to_csv(unchanged_files, 'unchanged_files.csv')

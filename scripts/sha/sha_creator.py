@@ -30,6 +30,6 @@ def generate_hash_csv(directory_path, output_csv, hash_algorithm='sha256', max_w
                     writer.writerow([file_path.relative_to(base_path), file_hash])
 
 # Example usage
-directory_path = 'path/to/your/directory'
-output_csv = 'file_hashes.csv'
+directory_path = '7-0_tex_24-08-03'
+output_csv = 'file_hashes_7-0_tex_24-08-03.csv'
 generate_hash_csv(directory_path, output_csv)
